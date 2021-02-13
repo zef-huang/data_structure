@@ -26,6 +26,33 @@ def transfer_to_8_base(number):
     return base_n
 
 
+
+# ------------------------------------------------------
+# 2. 使用栈实现括号匹配是否有效
+# [(())][]
+# ------------------------------------------------------
+
+def is_branket_match(express):
+    stack = []
+    for branket in express:
+        if branket == '(' or branket == '[':
+            stack.append(branket)
+        elif branket == ')' and stack:
+            if stack and '(' == stack.pop():
+                continue            
+        elif branket == ']' and stack:
+            if '[' == stack.pop():
+                continue
+        else:
+            return False
+    
+    if stack:
+        return False
+    
+    return True
+
+
 if __name__ == '__main__':
-    base_n = transfer_to_8_base(159)
-    print(base_n)
+    express = '[(())][]]'
+    result = is_branket_match(express)
+    print(result)
