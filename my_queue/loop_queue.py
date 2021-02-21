@@ -24,6 +24,9 @@ class LoopQueue():
 
         return self.queue.pop()
 
+    def get_size(self):
+        return len(self.queue)
+
 
 def test_loop_queue():
     queue = LoopQueue(3)
