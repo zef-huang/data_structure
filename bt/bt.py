@@ -78,6 +78,23 @@ def level_order(root):
             queue.insert_ele(node.right)
 
 
+# ------------------------------------------------------
+# 4. 二叉树的复制
+# ------------------------------------------------------
+
+
+def copy_tree(root):
+    if not root:
+        return None
+
+    node = BtNode(root.data)
+    node.left = copy_tree(root.left)
+    node.right = copy_tree(root.right)
+    return node
+
 if __name__ == '__main__':
     root = create_tree()
-    level_order(root)
+    copy_root = copy_tree(root)
+    pre_visit_tree(root)
+    print('--'*10)
+    pre_visit_tree(copy_root)
