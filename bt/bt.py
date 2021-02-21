@@ -54,7 +54,30 @@ def middle_visit_tree(root):
             p = p.right
 
 
+# ------------------------------------------------------
+# 3. 二叉树的层次遍历
+# ------------------------------------------------------
+
+import sys
+sys.path.append('..')
+from my_queue.loop_queue import LoopQueue
+
+def level_order(root):
+    queue = LoopQueue(100)
+    queue.insert_ele(root)
+    while queue:
+        if not queue.get_size():
+            print("二叉树层次遍历完成")
+            break
+
+        node = queue.get_ele()
+        print(node.data)
+        if node.left: 
+            queue.insert_ele(node.left)
+        if node.right: 
+            queue.insert_ele(node.right)
+
+
 if __name__ == '__main__':
     root = create_tree()
-    middle_visit_tree(root)
-    
+    level_order(root)
