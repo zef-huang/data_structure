@@ -108,7 +108,21 @@ def deep_of_bitree(root, deep=0):
     return max(left_deep, right_deep)
     
 
+
+# ------------------------------------------------------
+# 6. 探索二叉树的总节点数
+# ------------------------------------------------------
+
+def nodes_of_bitree(root):
+    if not root:
+        return 0
+    
+    left_nodes = nodes_of_bitree(root.left)
+    right_nodes = nodes_of_bitree(root.right)
+
+    return left_nodes + right_nodes + 1
+
 if __name__ == '__main__':
     root = create_tree()
-    deep = deep_of_bitree(root)
-    print(deep)
+    nodes = nodes_of_bitree(root)
+    print(nodes)
