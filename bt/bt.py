@@ -92,9 +92,23 @@ def copy_tree(root):
     node.right = copy_tree(root.right)
     return node
 
+
+# ------------------------------------------------------
+# 5. 探索二叉树的深度
+# ------------------------------------------------------
+
+def deep_of_bitree(root, deep=0):
+    if not root:
+        return deep
+    
+    deep += 1
+    left_deep = deep_of_bitree(root.left, deep)
+    right_deep = deep_of_bitree(root.right, deep)
+
+    return max(left_deep, right_deep)
+    
+
 if __name__ == '__main__':
     root = create_tree()
-    copy_root = copy_tree(root)
-    pre_visit_tree(root)
-    print('--'*10)
-    pre_visit_tree(copy_root)
+    deep = deep_of_bitree(root)
+    print(deep)
