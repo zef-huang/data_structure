@@ -122,7 +122,27 @@ def nodes_of_bitree(root):
 
     return left_nodes + right_nodes + 1
 
+
+# ------------------------------------------------------
+# 7. 探索二叉树的叶子节点数
+# ------------------------------------------------------
+
+def lead_of_bitree(root):
+    if not root:
+        return 0
+
+    if (not root.left) and (not root.right):
+        return 1 
+
+    left_leads = lead_of_bitree(root.left)
+    right_leads = lead_of_bitree(root.right)
+
+    return left_leads + right_leads
+
+
+
+
 if __name__ == '__main__':
     root = create_tree()
-    nodes = nodes_of_bitree(root)
-    print(nodes)
+    lead = lead_of_bitree(root)
+    print(lead)
