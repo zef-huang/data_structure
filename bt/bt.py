@@ -36,7 +36,25 @@ def pre_visit_tree(root):
     pre_visit_tree(root.right)
 
 
+# ------------------------------------------------------
+# 2. 中序遍历的递归算法
+# ------------------------------------------------------
+
+def middle_visit_tree(root):
+    stack = []
+    p = root
+
+    while p or stack:
+        if p:
+            stack.append(p)
+            p = p.left
+        else:
+            p = stack.pop()
+            print(p.data)
+            p = p.right
+
+
 if __name__ == '__main__':
     root = create_tree()
-    pre_visit_tree(root)
+    middle_visit_tree(root)
     
