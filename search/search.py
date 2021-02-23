@@ -89,5 +89,28 @@ def mid_visit_bi_sorted_tree():
     mid_visit_tree(root)
 
 
+# -----------------------------------------------------
+# 3. 二叉排序树的查找
+# -----------------------------------------------------
+
+def index_bi_sorted_tree(root, num):
+
+    if not root:
+        return None
+    
+    if root.data == num:
+        return root
+
+    if num < root.data:
+        return index_bi_sorted_tree(root.left, num)
+    else:
+        return index_bi_sorted_tree(root.right, num)
+    
+
 if __name__ == '__main__':
-    mid_visit_bi_sorted_tree()
+    root = create_bi_sorted_tree()
+    node = index_bi_sorted_tree(root, 112)
+    if node:
+        print(node.data)
+    else:
+        print("没有找到对应节点")
