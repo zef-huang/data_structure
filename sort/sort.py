@@ -9,9 +9,16 @@
 def insert_sort(num_list):
     for i in range(len(num_list)):
         tmp = num_list[i]
-        while i>0 and num_list[i-1] > tmp:
-            num_list[i] = num_list[i-1]
-            i -= 1
+
+        while i > 0:
+            before = i - 1
+            if tmp < num_list[before]:
+                num_list[i] = num_list[before]
+                i -= 1
+            else:
+                break
+
+        num_list[i] = tmp        
 
     return num_list
 
@@ -47,8 +54,34 @@ def bi_insert_sort(num_list):
     return num_list
 
 
+# ------------------------------------------------------
+# 3. 希尔排序, 需要增量序列
+# 希尔排序的思想是利用插入排序的优点，在数据量小、在数据量大致有序的情况下排序效率高
+# ------------------------------------------------------
+
+
+def shell_sort(num_list, step_seq=[5,3,1]):
+    for step in step_seq:
+        for i in range(step):
+            copy_i = i
+            seq_list = []
+            while i<len(num_list):
+                seq_list.append(num_list[i])
+                i += step
+
+            # 增量排序
+            seq_list = insert_sort(seq_list)
+
+            i = copy_i
+            for index, num in enumerate(seq_list):
+                num_list[index*step + i] = num
+
+    return num_list
+
+
 if __name__ == '__main__':
     num_list = [4, 2, 5, 7, 34, 3, 25, 67, 12]
-    sort_l = bi_insert_sort(num_list)
+    sort_l = shell_sort(num_list)
+    # sort_l = insert_sort(num_list)
     print(sort_l)
     
