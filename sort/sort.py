@@ -158,10 +158,53 @@ def quick_sort(num_list, left, right):
     quick_sort(num_list, initial_left, left-1)
     quick_sort(num_list, left+1, initial_right)
 
+
+# ------------------------------------------------------
+# 6. 堆排序
+    # num_list = ['', 49, 38, 65, 97, 76, 13, 27, 49]
+    # small_heap_sort(num_list)
+    # print(num_list)
+
+    # ['', 13, 38, 27, 49, 76, 65, 49, 97]
+# ------------------------------------------------------
+
+
+# 调整堆
+def adjust(num_list, node_index):
+    max_len = len(num_list) - 1
+    mini = node_index
+
+    left_index = 2*node_index
+    if left_index <= max_len:
+        left_node = num_list[left_index]
+        if left_node < num_list[node_index]:
+            mini = left_index
+
+
+    right_index = 2*node_index + 1
+    if right_index <= max_len:
+        right_node = num_list[right_index]
+        if right_node < left_node:
+            mini = right_index
+    
+    if mini == node_index:
+        return
+
+    num_list[mini], num_list[node_index] = num_list[node_index], num_list[mini]
+    adjust(num_list, mini)
+
+
+def small_heap_sort(num_list):
+    # index 从 1 开始
+    max_len = len(num_list) - 1
+    i = max_len // 2
+    while i > 0:
+        adjust(num_list, i)
+        i -= 1
+
+
 if __name__ == '__main__':
-    num_list = [4, 2, 5, 7, 34, 4, 25, 67, 12]
-    left = 0
-    right = len(num_list) - 1
-    quick_sort(num_list, left, right)
+    num_list = ['', 49, 38, 65, 97, 76, 13, 27, 49]
+    small_heap_sort(num_list)
     print(num_list)
     
