@@ -79,9 +79,30 @@ def shell_sort(num_list, step_seq=[5,3,1]):
     return num_list
 
 
+
+# ------------------------------------------------------
+# 上面的属于插入排序，下面试一下交换排序，主要包括冒泡排序和快速排序
+# ------------------------------------------------------
+
+# ------------------------------------------------------
+# 4. 冒泡排序
+# ------------------------------------------------------
+
+
+def bubble_sort(num_list):
+    length = len(num_list)
+
+    while length > 0:
+        for i in range(length):
+            if i>0 and num_list[i-1] > num_list[i]:
+                num_list[i], num_list[i-1] = num_list[i-1], num_list[i]
+
+        length -= 1 
+
+    return num_list
+
 if __name__ == '__main__':
     num_list = [4, 2, 5, 7, 34, 3, 25, 67, 12]
-    sort_l = shell_sort(num_list)
-    # sort_l = insert_sort(num_list)
+    sort_l = bubble_sort(num_list)
     print(sort_l)
     
