@@ -138,31 +138,30 @@ def bubble_sort(num_list):
 #     return num_list
 
 
-def quick_sort(num_list):
-    length = len(num_list)
-    if length <= 1:
-        return num_list
+def quick_sort(num_list, left, right):
+    initial_left = left
+    initial_right = right
 
-    pivot = num_list[0]
-    left = 0
-    right = length - 1
-    while left < right:
-        while left < right and num_list[right] >= pivot:
-            right -= 1
-        num_list[left] = num_list[right]
+    if left >= right:
+        return
 
-        while left < right and num_list[left] <= pivot:
-            left += 1
-        num_list[right] = num_list[left]
+    pivot = num_list[left]
+    while left < right and num_list[right] >= pivot:
+        right -= 1
+    num_list[left] = num_list[right]
 
-    num_list[right] = pivot
-    num_list[:left] = quick_sort(num_list[:left])
-    num_list[left+1:] = quick_sort(num_list[left+1:])
-    return num_list
+    while left < right and num_list[left] <= pivot:
+        left += 1
+    num_list[right] = num_list[left]
 
+    num_list[left] = pivot
+    quick_sort(num_list, initial_left, left-1)
+    quick_sort(num_list, left+1, initial_right)
 
 if __name__ == '__main__':
     num_list = [4, 2, 5, 7, 34, 4, 25, 67, 12]
-    sort_l = quick_sort(num_list)
-    print(sort_l)
+    left = 0
+    right = len(num_list) - 1
+    quick_sort(num_list, left, right)
+    print(num_list)
     
