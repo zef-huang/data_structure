@@ -170,29 +170,24 @@ def quick_sort(num_list, left, right):
 
 
 # 调整堆
-def adjust_heap(num_list, max_len):
-    i = max_len // 2
+def adjust_heap(num_list, heap_len, i):
+    mini = i
+    left_index = 2*i
+    right_index = 2*i + 1
 
-    while i > 0:
-        mini = i
-        left_index = 2*i
+    if left_index <= heap_len:
+        left_node = num_list[left_index]
+        if left_node < num_list[i]:
+            mini = left_index
 
-        if left_index <= max_len:
-            left_node = num_list[left_index]
-            if left_node < num_list[i]:
-                mini = left_index
-
-
-        right_index = 2*i + 1
-        if right_index <= max_len:
-            right_node = num_list[right_index]
-            if right_node < left_node:
-                mini = right_index
-        
-        if mini != i:
-            num_list[mini], num_list[i] = num_list[i], num_list[mini]
-
-        i -= 1
+    if right_index <= heap_len:
+        right_node = num_list[right_index]
+        if right_node < left_node:
+            mini = right_index
+    
+    if mini != i:
+        num_list[mini], num_list[i] = num_list[i], num_list[mini]
+        adjust_heap(num_list, heap_len, mini)
 
 
 def small_heap_sort(num_list, heap_len):
@@ -200,12 +195,17 @@ def small_heap_sort(num_list, heap_len):
         return
 
     # 创建小根堆，获取到最小的堆顶
-    adjust_heap(num_list, heap_len)
+    initail_len = heap_len//2
+    while initail_len>0:
+        adjust_heap(num_list, heap_len, initail_len)
+        initail_len -= 1
 
     # 堆排序
-    for i in range(1, heap_len)[::-1]:
-        num_list[1], num_list[i+1] = num_list[i+1], num_list[1]
-        adjust_heap(num_list, i)
+    while heap_len>1:
+        num_list[1], num_list[heap_len] = num_list[heap_len], num_list[1]
+        heap_len -= 1
+        adjust_heap(num_list, heap_len, 1)
+
 
 
 if __name__ == '__main__':
