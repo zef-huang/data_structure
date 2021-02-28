@@ -165,7 +165,7 @@ def quick_sort(num_list, left, right):
     # small_heap_sort(num_list)
     # print(num_list)
 
-    # ['', 13, 38, 27, 49, 76, 65, 49, 97]
+    # ['', 97, 76, 65, 49, 49, 38, 27, 13]
 # ------------------------------------------------------
 
 
@@ -208,9 +208,45 @@ def small_heap_sort(num_list, heap_len):
 
 
 
+# ------------------------------------------------------
+# 7. 归并排序
+# ------------------------------------------------------
+
+def merge_2_list(num_list_1, num_list_2):
+    ret_num_list = []
+
+    while num_list_1 and num_list_2:
+        if num_list_1[0] < num_list_2[0]:
+            data = num_list_1.pop(0)
+        else:
+            data = num_list_2.pop(0)
+
+        ret_num_list.append(data)
+
+    if num_list_1:
+        ret_num_list += num_list_1
+
+    if num_list_2:
+        ret_num_list += num_list_2
+
+    return ret_num_list
+
+
+def merge_sort(num_list):
+    if len(num_list) < 2:
+        return num_list
+
+    left, right = 0, len(num_list) - 1
+    mid = (left + right) // 2
+
+    left_sort_list = merge_sort(num_list[:mid+1])
+    right_sort_list = merge_sort(num_list[mid+1:])
+
+    return merge_2_list(left_sort_list, right_sort_list)
+
+
 if __name__ == '__main__':
-    num_list = ['', 49, 38, 65, 97, 76, 13, 27, 49]
-    heap_len = len(num_list) - 1
-    small_heap_sort(num_list, heap_len)
+    num_list = [49, 38, 65, 97, 76, 13, 27, 49]
+    num_list = merge_sort(num_list)
     print(num_list)
     
