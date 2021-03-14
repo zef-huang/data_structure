@@ -48,33 +48,38 @@ def get_tree_from_arry(num_list):
 
 
 # ------------------------------------------------------
-# 2. 有个长度为 n 字符串，如果存在长度为 m 中子串各个字符都不一样，返回子串首个字符索引，否则返回 -1
+# 2. 有个长度为 n 字符串，如果存在长度为 m 中目标子串(匹配字符可以和目标子串不一样，但是总的字符要一致)，返回子串首个字符索引，否则返回 -1
 # ------------------------------------------------------
 
 
-def get_string_m_char_index(ss, n):
-    ss_len = len(ss)
-    if ss_len < n:
+def get_string_m_char_index(ss, aims):
+    n = len(ss)
+    m = len(aims)
+    aim_list = [i for i in aims]
+    match_aim_list = []
+
+    if n < m:
         return -1
 
-    left = 0
     right = 0
-    queue = []
-
-    while right < ss_len:
-        if (right - left) >= n:
+    while right < n:
+        if not aim_list:
             break
 
-        while ss[right] in queue:
-            queue.pop(0)
-            left += 1
+        if ss[right] in aim_list:
+            pop_i = aim_list.index(ss[right])
 
-        queue.append(ss[right])
-        right += 1      
+            char = aim_list.pop(pop_i)
+            match_aim_list.append(char)
+        else:
+            aim_list += match_aim_list
+            match_aim_list = []
 
-    return left if left + n < ss_len else -1
+        right += 1
+
+    return right - m if right <= n else -1
 
 if __name__ == '__main__':
-    ss = 'sdhguahsdklighjosdih'
-    index = get_string_m_char_index(ss, 12)
+    ss = 'abaac'
+    index = get_string_m_char_index(ss, 'abca')
     print("index: ", index)
