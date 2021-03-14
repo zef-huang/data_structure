@@ -79,7 +79,32 @@ def get_string_m_char_index(ss, aims):
 
     return right - m if right <= n else -1
 
+
+# ------------------------------------------------------
+# 3. 最长无重复子子串长度
+# ------------------------------------------------------
+
+
+def get_longest_sub_string(ss):
+    if not ss:
+        return 0
+    ss_len = len(ss)
+
+    right = 0
+    sub_str_max_len = 0
+    queue = []
+    while right < ss_len:
+        while ss[right] in queue:
+            queue.pop(0)
+
+        queue.append(ss[right])
+        sub_str_max_len = max(sub_str_max_len, len(queue))
+
+        right += 1
+    return sub_str_max_len
+
+
 if __name__ == '__main__':
-    ss = 'abaac'
-    index = get_string_m_char_index(ss, 'abca')
-    print("index: ", index)
+    ss = 'abcaac'
+    length = get_longest_sub_string(ss)
+    print("length: ", length)
